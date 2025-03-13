@@ -1,0 +1,2178 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singapore Mahjong Rules</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="reading-progress"></div>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-dice"></i> Singapore Mahjong Rules
+            </div>
+            <div id="search-container">
+                <input type="text" id="search" placeholder="Search the rules...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </header>
+    <div id="search-results"></div>
+    <div class="main-container">
+        <nav>
+            <div class="nav-heading">
+                <i class="fas fa-book-open"></i> Main Sections
+            </div>
+            <div class="nav-item"><a href="#game-setup" class="nav-link"><i class="fas fa-chess-board"></i> 1. Game Setup</a></div>
+            <div class="subnav">
+                <div class="nav-item"><a href="#players-seats-winds"><i class="fas fa-users"></i> 1.1 Players, Seats, and Winds</a></div>
+                <div class="nav-item"><a href="#tile-set"><i class="fas fa-th"></i> 1.2 Tile Set and Components</a></div>
+                <div class="nav-item"><a href="#wall-dealing"><i class="fas fa-border-all"></i> 1.3 Building the Wall and Dealing</a></div>
+                <div class="nav-item"><a href="#bonus-replacement"><i class="fas fa-sync-alt"></i> 1.4 Initial Bonus Tile Replacement</a></div>
+                <div class="nav-item"><a href="#starting-round"><i class="fas fa-play"></i> 1.5 Starting the Round</a></div>
+            </div>
+            <div class="nav-item"><a href="#turn-order" class="nav-link"><i class="fas fa-retweet"></i> 2. Turn Order and Gameplay</a></div>
+            <div class="subnav">
+                <div class="nav-item"><a href="#turn-sequence"><i class="fas fa-list-ol"></i> 2.1 Turn Sequence Overview</a></div>
+                <div class="nav-item"><a href="#drawing-tile"><i class="fas fa-hand-paper"></i> 2.2 Drawing a Tile</a></div>
+                <div class="nav-item"><a href="#declaring-melds"><i class="fas fa-layer-group"></i> 2.3 Declaring Melds</a></div>
+                <div class="nav-item"><a href="#discarding"><i class="fas fa-trash-alt"></i> 2.4 Discarding a Tile</a></div>
+                <div class="nav-item"><a href="#claiming-discards"><i class="fas fa-hand-rock"></i> 2.5 Claiming Discards</a></div>
+                <div class="nav-item"><a href="#bonus-during-gameplay"><i class="fas fa-star"></i> 2.6 Bonus Tiles During Gameplay</a></div>
+                <div class="nav-item"><a href="#kong-declarations"><i class="fas fa-cubes"></i> 2.7 Kong Declarations</a></div>
+                <div class="nav-item"><a href="#winning-hand"><i class="fas fa-trophy"></i> 2.8 Winning a Hand</a></div>
+                <div class="nav-item"><a href="#special-win"><i class="fas fa-medal"></i> 2.9 Special Win Situations</a></div>
+                <div class="nav-item"><a href="#end-of-hand"><i class="fas fa-flag-checkered"></i> 2.10 End of a Hand</a></div>
+            </div>
+            <div class="nav-item"><a href="#scoring" class="nav-link"><i class="fas fa-calculator"></i> 3. Scoring and Payout</a></div>
+            <div class="subnav">
+                <div class="nav-item"><a href="#points-system"><i class="fas fa-coins"></i> 3.1 Points System Overview</a></div>
+                <div class="nav-item"><a href="#scoring-combinations"><i class="fas fa-list-alt"></i> 3.2 Scoring Combinations</a></div>
+                <div class="nav-item"><a href="#bonus-points"><i class="fas fa-gift"></i> 3.3 Bonus Tile Points</a></div>
+                <div class="nav-item"><a href="#payout-calculation"><i class="fas fa-chart-line"></i> 3.4 Payout Calculation</a></div>
+                <div class="nav-item"><a href="#scoring-summary"><i class="fas fa-file-alt"></i> 3.5 Scoring Summary</a></div>
+            </div>
+            <div class="nav-item"><a href="#developer-guide" class="nav-link"><i class="fas fa-code"></i> 4. Developer Implementation</a></div>
+            <div class="subnav">
+                <div class="nav-item"><a href="#system-architecture"><i class="fas fa-sitemap"></i> 4.1 System Architecture</a></div>
+                <div class="nav-item"><a href="#game-flow"><i class="fas fa-project-diagram"></i> 4.2 Game Flow Logic</a></div>
+                <div class="nav-item"><a href="#meld-detection"><i class="fas fa-search"></i> 4.3 Meld and Win Detection</a></div>
+                <div class="nav-item"><a href="#modularity"><i class="fas fa-puzzle-piece"></i> 4.4 Modularity and Maintenance</a></div>
+            </div>
+            <div class="nav-item"><a href="#scope" class="nav-link"><i class="fas fa-tasks"></i> 5. Scope and Change Management</a></div>
+            <div class="nav-heading">
+                <i class="fas fa-tools"></i> Developer Resources
+            </div>
+            <div class="nav-item"><a href="#data-structures"><i class="fas fa-database"></i> Data Structures</a></div>
+            <div class="nav-item"><a href="#algorithms"><i class="fas fa-cogs"></i> Key Algorithms</a></div>
+            <div class="nav-item"><a href="#state-machine"><i class="fas fa-random"></i> State Machine</a></div>
+            <div class="nav-item"><a href="#test-cases"><i class="fas fa-vial"></i> Test Cases</a></div>
+            <div class="nav-heading">
+                <i class="fas fa-book"></i> User References
+            </div>
+            <div class="nav-item"><a href="#tai-reference"><i class="fas fa-table"></i> Tai Point Reference</a></div>
+            <div class="nav-item"><a href="#payout-table"><i class="fas fa-money-bill-wave"></i> Payout Table</a></div>
+            <div class="nav-item"><a href="#glossary"><i class="fas fa-font"></i> Glossary</a></div>
+            <div class="nav-item"><a href="#example-scenarios"><i class="fas fa-lightbulb"></i> Example Scenarios</a></div>
+        </nav>
+        <main>
+            <div class="content">
+                <h1 id="main-title"><i class="fas fa-dice"></i> Singapore Mahjong Rules</h1>
+                <section id="overview" class="section">
+                    <h2>Overview</h2>
+                    <p>This documentation provides a comprehensive guide to Singapore Mahjong rules, designed for developers, testers, and players. The rules describe a 4-player tile game with unique Singapore variations including special animal tiles and scoring conventions.</p>
+                    <div class="toc">
+                        <div class="toc-title"><i class="fas fa-list"></i> Table of Contents</div>
+                        <ul>
+                            <li><a href="#game-setup">1. Game Setup</a></li>
+                            <li><a href="#turn-order">2. Turn Order and Gameplay Mechanics</a></li>
+                            <li><a href="#scoring">3. Scoring and Payout</a></li>
+                            <li><a href="#developer-guide">4. Developer Implementation Guide</a></li>
+                            <li><a href="#scope">5. Scope and Change Management</a></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-info-circle"></i> About Singapore Mahjong</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Singapore Mahjong is a popular variant of the classic tile-based game that originated in China. It features unique rules and scoring elements that set it apart from other regional variants like Japanese, Taiwanese, or Hong Kong Mahjong.</p>
+                            <p>Key distinctive features include:</p>
+                            <ul>
+                                <li>Special animal bonus tiles (Cat, Mouse, Chicken, Centipede)</li>
+                                <li>Unique "bite" (predator-prey) scoring mechanics</li>
+                                <li>144-tile set with traditional flowers and seasons</li>
+                                <li>Specific doubling system for scoring</li>
+                            </ul>
+                            <p>This documentation serves as the definitive reference for implementing Singapore Mahjong in digital format, ensuring consistent rule enforcement and authentic gameplay experience.</p>
+                        </div>
+                    </div>
+                </section>
+                <section id="game-setup" class="section">
+                    <h2><i class="fas fa-chess-board"></i> 1. Game Setup</h2>
+                    <div id="players-seats-winds" class="subsection">
+                        <h3><i class="fas fa-users"></i> 1.1 Players, Seats, and Winds</h3>
+                        <p>Singapore Mahjong is played with four players seated around a square table. Each player is associated with a wind direction (East, South, West, North) which determines turn order and scoring.</p>
+                        <div class="tabs">
+                            <div class="tab active" data-tab="key-rules">Key Rules</div>
+                            <div class="tab" data-tab="seating-diagram">Seating Diagram</div>
+                            <div class="tab" data-tab="dealer-rotation">Dealer Rotation</div>
+                        </div>
+                        <div class="tab-content active" id="key-rules">
+                            <ul>
+                                <li><strong>Number of Players:</strong> Four players only (no more, no fewer)</li>
+                                <li><strong>Seat Winds:</strong> Players are assigned seat winds: East, South, West, North</li>
+                                <li><strong>Starting Dealer:</strong> East is the starting dealer</li>
+                                <li><strong>Play Order:</strong> Counterclockwise (East → South → West → North → East)</li>
+                                <li><strong>Game Structure:</strong> Four rounds corresponding to prevailing winds (East, South, West, North)</li>
+                                <li><strong>Dealer Rotation:</strong> After each hand, the dealer typically passes to the next player counterclockwise</li>
+                                <li><strong>Dealer Continuity:</strong> If the dealer wins a hand or if a hand ends in a draw, the same player remains dealer for the next hand</li>
+                            </ul>
+                        </div>
+                        <div class="tab-content" id="seating-diagram">
+                            <div class="card">
+                                <div class="card-body" style="text-align: center;">
+                                    <div style="display: inline-block; padding: 20px; border: 2px solid #ccc; border-radius: 10px; margin: 20px 0;">
+                                        <div style="margin-bottom: 100px; text-align: center;">
+                                            <strong>North (Player 4)</strong>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; width: 300px;">
+                                            <div><strong>West (Player 3)</strong></div>
+                                            <div style="width: 100px;"></div>
+                                            <div><strong>East (Dealer)</strong></div>
+                                        </div>
+                                        <div style="margin-top: 100px; text-align: center;">
+                                            <strong>South (Player 2)</strong>
+                                        </div>
+                                    </div>
+                                    <p><em>Play proceeds counterclockwise: East → South → West → North → East</em></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="dealer-rotation">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Standard Dealer Rotation</h4>
+                                    <p>After a hand where a non-dealer wins:</p>
+                                    <ul>
+                                        <li>The dealer role passes counterclockwise to the next player</li>
+                                        <li>Seat winds rotate accordingly</li>
+                                        <li>After all players have been dealer once, the prevailing wind changes</li>
+                                    </ul>
+                                    <h4>Dealer Retention</h4>
+                                    <p>The dealer remains the same if:</p>
+                                    <ul>
+                                        <li>The dealer wins the hand</li>
+                                        <li>The hand ends in a draw with no Kong declared</li>
+                                    </ul>
+                                    <div class="note">
+                                        <p><strong>Important:</strong> When the dealer retains their position, an extra hand is played with the same prevailing wind. This can extend a round beyond the standard four hands.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tile-set" class="subsection">
+                        <h3><i class="fas fa-th"></i> 1.2 Tile Set and Components</h3>
+                        <p>Singapore Mahjong uses a 144-tile set with standard tiles plus unique bonus tiles.</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Tile Set Composition (144 Tiles)</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="tabs">
+                                    <div class="tab active" data-tab="suited-tiles">Suited Tiles (108)</div>
+                                    <div class="tab" data-tab="honor-tiles">Honor Tiles (28)</div>
+                                    <div class="tab" data-tab="bonus-tiles">Bonus Tiles (8)</div>
+                                </div>
+                                <div class="tab-content active" id="suited-tiles">
+                                    <p><strong>108 Suited Tiles:</strong> Three suits with numbers 1-9, four of each tile.</p>
+                                    <ul>
+                                        <li><strong>Dots (Circles):</strong> 1-9, four of each = 36 tiles</li>
+                                        <li><strong>Bamboos (Sticks):</strong> 1-9, four of each = 36 tiles</li>
+                                        <li><strong>Characters (Numbers):</strong> 1-9, four of each = 36 tiles</li>
+                                    </ul>
+                                    <div class="mahjong-set">
+                                        <span class="mahjong-tile">1🔴</span>
+                                        <span class="mahjong-tile">2🔴</span>
+                                        <span class="mahjong-tile">3🔴</span>
+                                        <span class="mahjong-tile">4🔴</span>
+                                        <span class="mahjong-tile">5🔴</span>
+                                        <span class="mahjong-tile">6🔴</span>
+                                        <span class="mahjong-tile">7🔴</span>
+                                        <span class="mahjong-tile">8🔴</span>
+                                        <span class="mahjong-tile">9🔴</span>
+                                    </div>
+                                </div>
+                                <div class="tab-content" id="honor-tiles">
+                                    <p><strong>28 Honor Tiles:</strong></p>
+                                    <ul>
+                                        <li><strong>Wind Tiles:</strong> East, South, West, North - four of each = 16 tiles</li>
+                                        <li><strong>Dragon Tiles:</strong> Red, Green, White - four of each = 12 tiles</li>
+                                    </ul>
+                                    <div class="mahjong-set">
+                                        <span class="mahjong-tile">E</span>
+                                        <span class="mahjong-tile">S</span>
+                                        <span class="mahjong-tile">W</span>
+                                        <span class="mahjong-tile">N</span>
+                                        <span class="mahjong-tile">🔴</span>
+                                        <span class="mahjong-tile">🟢</span>
+                                        <span class="mahjong-tile">⚪</span>
+                                    </div>
+                                </div>
+                                <div class="tab-content" id="bonus-tiles">
+                                    <p><strong>8 Bonus Tiles:</strong></p>
+                                    <ul>
+                                        <li><strong>Flower Tiles:</strong> 4 tiles (numbered 1-4, corresponding to East, South, West, North)</li>
+                                        <li><strong>Season Tiles:</strong> 4 tiles (numbered 1-4, corresponding to East, South, West, North)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="note">
+                            <p><strong>Important:</strong> Bonus tiles (flowers, seasons) are not used to form melds. When drawn, they are immediately set aside and a replacement tile is drawn from the dead wall.</p>
+                        </div>
+                    </div>
+                    <div id="wall-dealing" class="subsection">
+                        <h3><i class="fas fa-border-all"></i> 1.3 Building the Wall and Dealing</h3>
+                        <p>At the start of each hand, tiles are shuffled and arranged into a square wall from which players draw.</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Wall Building Process</h4>
+                            </div>
+                            <div class="card-body">
+                                <ol>
+                                    <li><strong>Shuffle:</strong> Thoroughly mix all 144 tiles face-down</li>
+                                    <li>
+                                        <strong>Build the Wall:</strong>
+                                        <ul>
+                                            <li>Two opposite players build 19 stacks of 2 tiles (38 tiles each side)</li>
+                                            <li>The other two players build 18 stacks of 2 tiles (36 tiles each side)</li>
+                                            <li>This forms a square wall with 144 tiles total</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Break the Wall:</strong> The dealer rolls dice to determine the breaking point</li>
+                                    <li>
+                                        <strong>Deal:</strong>
+                                        <ul>
+                                            <li>East (dealer) receives 14 tiles</li>
+                                            <li>South, West, and North each receive 13 tiles</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Reserve Dead Wall:</strong> The last 15 tiles of the wall are reserved as the "dead wall" for replacement draws</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="example">
+                            <h4>Digital Implementation Note</h4>
+                            <p>In digital implementation, the wall building process simplifies to:</p>
+                            <ol>
+                                <li>Shuffle all 144 tiles using a random algorithm</li>
+                                <li>Generate a random break point</li>
+                                <li>Deal 14 tiles to dealer, 13 to each other player</li>
+                                <li>Reserve last 15 tiles as dead wall</li>
+                                <li>Remaining tiles form the main wall for drawing</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div id="bonus-replacement" class="subsection">
+                        <h3><i class="fas fa-sync-alt"></i> 1.4 Initial Bonus Tile Replacement</h3>
+                        <p>After the initial deal, players must check for and declare any bonus tiles in their starting hands.</p>
+                        <h4>Replacement Process:</h4>
+                        <ol>
+                            <li><strong>Declare Bonus Tiles:</strong> Starting with the dealer, each player reveals any bonus tiles in their hand</li>
+                            <li><strong>Draw Replacements:</strong> For each bonus tile revealed, the player draws a replacement from the dead wall</li>
+                            <li><strong>Continue If Needed:</strong> If the replacement is also a bonus tile, it is revealed and another replacement is drawn</li>
+                            <li><strong>Cycle Through Players:</strong> Move to the next player and repeat until no player has any undeclared bonus tiles</li>
+                        </ol>
+                        <div class="example">
+                            <h4>Example Bonus Replacement Scenario</h4>
+                            <p>East (dealer) has one flower tile in their initial hand:</p>
+                            <ol>
+                                <li>East reveals the bonus tile and sets it aside</li>
+                                <li>East draws a replacement tile from the dead wall</li>
+                                <li>If this replacement is also a bonus tile, East reveals it and draws another replacement</li>
+                                <li>Once East has no more bonus tiles, South checks their hand for bonus tiles and follows the same process</li>
+                                <li>The cycle continues until all players have declared all bonus tiles</li>
+                            </ol>
+                        </div>
+                        <div class="note">
+                            <p><strong>Important:</strong> Collecting certain sets of bonus tiles can trigger immediate payments (see section 3.3).</p>
+                        </div>
+                    </div>
+                    <div id="starting-round" class="subsection">
+                        <h3><i class="fas fa-play"></i> 1.5 Starting the Round</h3>
+                        <p>After the wall is built, tiles dealt, and initial bonus tile replacement is done, the active play begins.</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Start of Play</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li><strong>Dealer's First Discard:</strong> The dealer (East) must discard one tile to begin the game</li>
+                                    <li><strong>Hand Size Equalization:</strong> After this first discard, all players should have 13 tiles in their hand</li>
+                                    <li><strong>Turn Order:</strong> Play proceeds to the next player (South)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="example">
+                            <h4>Game State at Start of Play</h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
+                                <div style="flex: 1; min-width: 250px;">
+                                    <h5><i class="fas fa-user"></i> Player Hands</h5>
+                                    <ul>
+                                        <li>Each player has 13 hand tiles (hidden from others)</li>
+                                        <li>Each player has any number of bonus tiles set aside (visible to all)</li>
+                                    </ul>
+                                </div>
+                                <div style="flex: 1; min-width: 250px;">
+                                    <h5><i class="fas fa-border-all"></i> Wall Status</h5>
+                                    <ul>
+                                        <li>The discard pile has 1 tile (the dealer's first discard)</li>
+                                        <li>The wall is ready with the remaining playable tiles</li>
+                                        <li>The dead wall holds the reserved tiles for replacements</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="turn-order" class="section">
+                    <h2><i class="fas fa-retweet"></i> 2. Turn Order and Gameplay Mechanics</h2>
+                    <div id="turn-sequence" class="subsection">
+                        <h3><i class="fas fa-list-ol"></i> 2.1 Turn Sequence Overview</h3>
+                        <p>A Mahjong hand proceeds in turns, cycling through players in counterclockwise order.</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">General Turn Sequence</h4>
+                            </div>
+                            <div class="card-body">
+                                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                    <div style="flex: 1; min-width: 200px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5><span class="badge badge-primary">1</span> Draw</h5>
+                                        <p>Player draws one tile from the wall <strong>OR</strong> claims the previous player's discard</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 200px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5><span class="badge badge-primary">2</span> Meld/Win Check</h5>
+                                        <p>Player may declare a win, or form melds with the drawn/claimed tile</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 200px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5><span class="badge badge-primary">3</span> Discard</h5>
+                                        <p>If not winning, player discards one tile to end their turn</p>
+                                    </div>
+                                </div>
+                                <div class="note" style="margin-top: 20px;">
+                                    <p>After discarding, other players have an opportunity to claim that discard before the next player's turn begins. This can interrupt the normal turn order.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="drawing-tile" class="subsection">
+                        <h3><i class="fas fa-hand-paper"></i> 2.2 Drawing a Tile</h3>
+                        <div class="tabs">
+                            <div class="tab active" data-tab="types-of-draws">Types of Draws</div>
+                            <div class="tab" data-tab="exhausting-wall">Exhausting the Wall</div>
+                        </div>
+                        <div class="tab-content active" id="types-of-draws">
+                            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                <div style="flex: 1; min-width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                                    <h4><i class="fas fa-hand-paper"></i> Normal Draw</h4>
+                                    <p>Drawing the next tile from the main wall during your regular turn.</p>
+                                    <ul>
+                                        <li>Occurs at the beginning of each player's turn</li>
+                                        <li>Takes the next available tile from the wall</li>
+                                        <li>Does not happen if claiming a discard instead</li>
+                                    </ul>
+                                </div>
+                                <div style="flex: 1; min-width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                                    <h4><i class="fas fa-sync-alt"></i> Replacement Draw</h4>
+                                    <p>Drawing from the dead wall after declaring a Kong or drawing a bonus tile.</p>
+                                    <ul>
+                                        <li>Occurs after declaring a Kong</li>
+                                        <li>Occurs when drawing a bonus tile</li>
+                                        <li>Takes a tile from the reserved dead wall (not the main wall)</li>
+                                        <li>Does not end your turn - you still discard afterward</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="exhausting-wall">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="warning note">
+                                        <p><strong>Important:</strong> If the draw stack is depleted (only dead wall remains), the hand ends immediately in a draw (no winner).</p>
+                                    </div>
+                                    <h4>End of Wall Procedure</h4>
+                                    <ol>
+                                        <li>When the last playable tile is drawn, the player may use it to form melds or win</li>
+                                        <li>If the player cannot win with the last tile, they do not discard</li>
+                                        <li>The hand ends as a draw with no winner</li>
+                                        <li>No scoring occurs for the hand (though any previous immediate payments during the hand remain valid)</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="declaring-melds" class="subsection">
+                        <h3><i class="fas fa-layer-group"></i> 2.3 Declaring Melds (Pong, Kong, Chow)</h3>
+                        <p>Players may form melds either on their turn after drawing a tile, or by claiming another player's discard.</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Types of Melds</h4>
+                            </div>
+                            <div class="card-body">
+                                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                    <div style="flex: 1; min-width: 200px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5>Pong (Pung)</h5>
+                                        <p>Three identical tiles</p>
+                                        <div class="mahjong-set">
+                                            <span class="mahjong-tile">5🔴</span>
+                                            <span class="mahjong-tile">5🔴</span>
+                                            <span class="mahjong-tile">5🔴</span>
+                                        </div>
+                                    </div>
+                                    <div style="flex: 1; min-width: 200px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5>Kong</h5>
+                                        <p>Four identical tiles</p>
+                                        <div class="mahjong-set">
+                                            <span class="mahjong-tile">3🟢</span>
+                                            <span class="mahjong-tile">3🟢</span>
+                                            <span class="mahjong-tile">3🟢</span>
+                                            <span class="mahjong-tile">3🟢</span>
+                                        </div>
+                                    </div>
+                                    <div style="flex: 1; min-width: 200px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5>Chow (Chi)</h5>
+                                        <p>Three consecutive numbers in the same suit</p>
+                                        <div class="mahjong-set">
+                                            <span class="mahjong-tile">4♦</span>
+                                            <span class="mahjong-tile">5♦</span>
+                                            <span class="mahjong-tile">6♦</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 style="margin-top: 20px;">Kong Types</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                            <div style="flex: 1; min-width: 200px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                                <h5>Concealed Kong</h5>
+                                <p>All four identical tiles from your hand</p>
+                                <ul>
+                                    <li>Declared during your turn</li>
+                                    <li>No tiles claimed from other players</li>
+                                    <li>Still requires drawing a replacement</li>
+                                </ul>
+                            </div>
+                            <div style="flex: 1; min-width: 200px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                                <h5>Exposed Kong (Pong extension)</h5>
+                                <p>Adding a fourth tile to an existing exposed Pong</p>
+                                <ul>
+                                    <li>Declared when you draw the 4th tile</li>
+                                    <li>Builds on a previously declared Pong</li>
+                                    <li>Requires drawing a replacement</li>
+                                </ul>
+                            </div>
+                            <div style="flex: 1; min-width: 200px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                                <h5>Exposed Kong (from discard)</h5>
+                                <p>Claiming a discard when you have three identical tiles in hand</p>
+                                <ul>
+                                    <li>Claimed from another player's discard</li>
+                                    <li>You already have the other three tiles</li>
+                                    <li>Still requires drawing a replacement</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="note" style="margin-top: 20px;">
+                            <p><strong>Note:</strong> After declaring any Kong, the player must immediately draw a replacement tile from the dead wall.</p>
+                        </div>
+                        <h4 style="margin-top: 20px;">Chow Restrictions</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <ul>
+                                    <li><strong>Limited Claiming:</strong> Chows can only be claimed from the player immediately preceding you in turn order</li>
+                                    <li><strong>No Skipping:</strong> You cannot claim a discard from non-adjacent players to make a Chow</li>
+                                    <li><strong>Lowest Priority:</strong> Chow claims have lower priority than Pong/Kong or winning claims</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="discarding" class="subsection">
+                        <h3><i class="fas fa-trash-alt"></i> 2.4 Discarding a Tile</h3>
+                        <p>At the end of a player's turn, they must discard exactly one tile to reduce their hand to 13 tiles.</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Discard Rules</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li><strong>Mandatory Action:</strong> The discarded tile is placed face-up in the center area</li>
+                                    <li><strong>Free Choice:</strong> A player can discard any tile from their hand (not necessarily the one just drawn)</li>
+                                    <li><strong>Finality:</strong> Once discarded, a tile cannot be taken back</li>
+                                </ul>
+                                <h5 style="margin-top: 15px;">Discard Restrictions</h5>
+                                <div class="warning note">
+                                    <ul>
+                                        <li><strong>Self-Block:</strong> If you discard a tile, you cannot claim the same tile (discarded by another) until after your next turn has passed</li>
+                                        <li><strong>Pass Penalty:</strong> If you had an opportunity to claim a tile and passed, you generally cannot claim that same tile if it appears again before your turn comes</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="claiming-discards" class="subsection">
+                        <h3><i class="fas fa-hand-rock"></i> 2.5 Claiming Discards (Stealing Tiles)</h3>
+                        <p>When a tile is discarded, other players get a chance to claim it before the next player draws.</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Claim Types and Priority</h4>
+                            </div>
+                            <div class="card-body">
+                                <ol>
+                                    <li><strong style="color: #f44336;">Winning (Mahjong)</strong>: Highest priority - any player who can use the tile to complete a winning hand</li>
+                                    <li><strong style="color: #ff9800;">Pong/Kong</strong>: Any player who has two/three of that same tile in hand</li>
+                                    <li><strong style="color: #2196f3;">Chow</strong>: Lowest priority - only the next player in turn can claim for a Chow</li>
+                                </ol>
+                                <h5 style="margin-top: 15px;">Priority Resolution</h5>
+                                <ul>
+                                    <li>If multiple players want to claim for the same purpose, priority goes to the player closest to the discarder in turn order</li>
+                                    <li>A win claim always trumps meld claims</li>
+                                    <li>Pong/Kong claims always trump Chow claims, regardless of turn order</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="example">
+                            <h4>Example: Priority in Action</h4>
+                            <p>East discards 5♠:</p>
+                            <ul>
+                                <li>South wants it for a Chow (4-5-6♠)</li>
+                                <li>West wants it for a Pong (has two 5♠ in hand)</li>
+                                <li>North could win with it</li>
+                            </ul>
+                            <p><strong>Resolution:</strong> North's win claim would trump all. If North didn't want to win, West's Pong would trump South's Chow even though South is next in turn.</p>
+                        </div>
+                    </div>
+                    <div id="bonus-during-gameplay" class="subsection">
+                        <h3><i class="fas fa-star"></i> 2.6 Bonus Tiles During Gameplay</h3>
+                        <p>If during a normal turn draw a player picks a bonus tile, they must immediately declare it and draw a replacement from the dead wall.</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Bonus Tile Process</h4>
+                            </div>
+                            <div class="card-body">
+                                <ol>
+                                    <li>Player draws a bonus tile from the wall</li>
+                                    <li>Player announces the bonus tile and places it in their bonus tile area</li>
+                                    <li>Player draws a replacement from the dead wall</li>
+                                    <li>If that replacement is also a bonus, repeat until a non-bonus is drawn</li>
+                                </ol>
+                                <div class="info note">
+                                    <p><strong>Important:</strong> Drawing a bonus tile does not end your turn. After drawing your replacement(s), you continue your turn normally and will discard at the end.</p>
+                                </div>
+                                <div class="success note">
+                                    <p><strong>Immediate Rewards:</strong> Some bonus tile combinations trigger immediate payments from other players.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="note">
+                            <p><strong>Note:</strong> Bonus tiles, once drawn and revealed, cannot be stolen or used by other players in any way.</p>
+                        </div>
+                    </div>
+                    <div id="kong-declarations" class="subsection">
+                        <h3><i class="fas fa-cubes"></i> 2.7 Kong Declarations and Replacement Draws</h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Timing of Kong Declaration</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>On your turn after drawing a tile</li>
+                                    <li>After melding a Pong earlier and later drawing the fourth tile</li>
+                                    <li>Immediately after another's discard (if you have three identical tiles in hand)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h4 style="margin-top: 20px;">Kong Process</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <ol>
+                                    <li>Declare and expose the Kong</li>
+                                    <li>Draw a replacement tile from the dead wall</li>
+                                    <li>If that replacement allows another Kong, you may declare it in the same turn</li>
+                                    <li>After finishing all Kong declarations and replacement draws, discard one tile to end your turn</li>
+                                </ol>
+                                <div class="example">
+                                    <h5>Kong on Kong</h5>
+                                    <p>A player may declare multiple Kongs in sequence if replacements allow:</p>
+                                    <ol>
+                                        <li>Player declares a Kong with 7♦</li>
+                                        <li>Draws a 3♣ from the dead wall as replacement</li>
+                                        <li>This happens to be the fourth 3♣ in their hand</li>
+                                        <li>Player declares another Kong with 3♣</li>
+                                        <li>Draws another replacement from the dead wall</li>
+                                        <li>Eventually discards to end turn</li>
+                                    </ol>
+                                    <p>This "Kong on Kong" scenario can lead to special scoring opportunities.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="winning-hand" class="subsection">
+                        <h3><i class="fas fa-trophy"></i> 2.8 Winning a Hand (Mahjong Declaration)</h3>
+                        <p>The objective for each player is to form a complete winning hand of Mahjong. A player declares "Mahjong" or "Hu" to win the hand when they satisfy the winning requirements.</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Winning Hand Structure</h4>
+                            </div>
+                            <div class="card-body">
+                                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                    <div style="flex: 1; min-width: 300px;">
+                                        <h5>Standard Winning Pattern</h5>
+                                        <p>A standard winning hand consists of 14 tiles forming:</p>
+                                        <ul>
+                                            <li>4 melds (sets of three tiles: Pongs, Kongs, or Chows)</li>
+                                            <li>1 pair (two identical tiles)</li>
+                                        </ul>
+                                        <div class="example">
+                                            <p><strong>Example Hand:</strong></p>
+                                            <div class="mahjong-set">
+                                                <span class="mahjong-tile">1♦</span>
+                                                <span class="mahjong-tile">2♦</span>
+                                                <span class="mahjong-tile">3♦</span>
+                                                (Chow)
+                                            </div>
+                                            <div class="mahjong-set">
+                                                <span class="mahjong-tile">5♠</span>
+                                                <span class="mahjong-tile">5♠</span>
+                                                <span class="mahjong-tile">5♠</span>
+                                                (Pong)
+                                            </div>
+                                            <div class="mahjong-set">
+                                                <span class="mahjong-tile">E</span>
+                                                <span class="mahjong-tile">E</span>
+                                                <span class="mahjong-tile">E</span>
+                                                (Pong)
+                                            </div>
+                                            <div class="mahjong-set">
+                                                <span class="mahjong-tile">7♣</span>
+                                                <span class="mahjong-tile">8♣</span>
+                                                <span class="mahjong-tile">9♣</span>
+                                                (Chow)
+                                            </div>
+                                            <div class="mahjong-set">
+                                                <span class="mahjong-tile">🔴</span>
+                                                <span class="mahjong-tile">🔴</span>
+                                                (Pair)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="flex: 1; min-width: 300px;">
+                                        <h5>Special Winning Patterns</h5>
+                                        <p>Special hands that don't follow the 4-meld + 1-pair pattern include:</p>
+                                        <ul>
+                                            <li><strong>Thirteen Orphans:</strong> One of each terminal and honor, plus one duplicate</li>
+                                            <li><strong>All 8 Flowers and Seasons:</strong> Collecting all flower and season tiles</li>
+                                            <li><strong>Seven Flowers and Robbing the Last:</strong> Having 7 out of 8 flower/season tiles and winning by "robbing" the eighth</li>
+                                        </ul>
+                                        <div class="warning note">
+                                            <p><strong>Minimum Point Requirement:</strong> The hand must score at least 1 point (1 tai) to be a valid win</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 style="margin-top: 20px;">Ways to Win</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                            <div style="flex: 1; min-width: 300px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                                <h5><i class="fas fa-hand-paper"></i> Self-Draw Win (Zimo)</h5>
+                                <p>Winning by drawing a tile from the wall on your own turn.</p>
+                                <ul>
+                                    <li>All three opponents pay</li>
+                                    <li>Generally higher total payout than discard win</li>
+                                    <li>Some hands score extra points for self-draw</li>
+                                </ul>
+                            </div>
+                            <div style="flex: 1; min-width: 300px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                                <h5><i class="fas fa-hand-rock"></i> Discard Win</h5>
+                                <p>Winning by claiming another player's discard.</p>
+                                <ul>
+                                    <li>The player who discarded pays double</li>
+                                    <li>Other two players pay single amount</li>
+                                    <li>Some hands require self-draw to qualify for certain points</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="danger note" style="margin-top: 20px;">
+                            <p><strong>Important:</strong> Once a player has declared Mahjong, the hand is over and that player is the sole winner. Other players must stop and cannot declare wins even if they could also complete their hand with that same tile.</p>
+                        </div>
+                    </div>
+                    <div id="special-win" class="subsection">
+                        <h3><i class="fas fa-medal"></i> 2.9 Special Win Situations and Rule Conflicts</h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Robbing a Kong</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>This is a unique case where a player can win by claiming a tile not from a discard pile, but from another player's Kong declaration.</p>
+                                <ul>
+                                    <li>You can only rob an exposed Kong (when a player is adding the 4th tile to an already exposed Pong)</li>
+                                    <li>Robbing a Kong counts as a win for the robber, and is awarded a bonus point in scoring</li>
+                                    <li>The priority of Self-Draw always overrides Robbing a Kong if the player drawing could win themselves</li>
+                                </ul>
+                                <div class="example">
+                                    <h5>Robbing a Kong Example</h5>
+                                    <p>Player A has an exposed Pong of Red Dragons. They draw the fourth Red Dragon and declare a Kong. Player B, who was waiting for the Red Dragon to complete their hand, declares "Mahjong" to rob the Kong.</p>
+                                    <p>This interrupts Player A's Kong declaration. Player B takes the Red Dragon and wins the hand, receiving a bonus point for robbing the Kong.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 style="margin-top: 20px;">Other Special Win Situations</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                            <div style="flex: 1; min-width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                                <h5>Winning on the Last Tile</h5>
+                                <p>If a player wins using the very last tile available in the wall, this is a noteworthy event given a bonus point ("Last Tile Win").</p>
+                            </div>
+                            <div style="flex: 1; min-width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                                <h5>Thirteen Orphans Kong Robbing</h5>
+                                <p>A special case where the Thirteen Orphans hand can actually win by robbing a concealed kong in some rules.</p>
+                            </div>
+                        </div>
+                        <h4 style="margin-top: 20px;">Rule Conflict Precedence</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <ol>
+                                    <li>Win declarations take precedence over meld declarations</li>
+                                    <li>Self-draw is checked first by the drawing player</li>
+                                    <li>If a win opportunity arises on another's action, that interrupts that action if claimed</li>
+                                    <li>Between conflicting melds, Pong/Kong beats Chow</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="end-of-hand" class="subsection">
+                        <h3><i class="fas fa-flag-checkered"></i> 2.10 End of a Hand and Dealer Rotation</h3>
+                        <p>A hand ends either with a win (Mahjong) by a player or with a draw (no winner).</p>
+                        <div class="tabs">
+                            <div class="tab active" data-tab="player-wins">If a Player Wins</div>
+                            <div class="tab" data-tab="hand-draw">If the Hand is a Draw</div>
+                        </div>
+                        <div class="tab-content active" id="player-wins">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Dealer Rotation After Win</h4>
+                                    <ul>
+                                        <li><strong>If the winner was the dealer:</strong> The dealer remains dealer for the next hand</li>
+                                        <li><strong>If the winner was not the dealer:</strong> The deal passes to the next player counterclockwise</li>
+                                    </ul>
+                                    <div class="example">
+                                        <h5>Example</h5>
+                                        <p>East (dealer) wins the hand:</p>
+                                        <ul>
+                                            <li>East remains dealer for the next hand</li>
+                                            <li>The prevailing wind remains the same</li>
+                                            <li>This extends the round by one hand</li>
+                                        </ul>
+                                        <p>South (non-dealer) wins the hand:</p>
+                                        <ul>
+                                            <li>The dealer position moves to South</li>
+                                            <li>Wind assignments rotate: East becomes South, South becomes West, etc.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="hand-draw">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Dealer Rotation After Draw</h4>
+                                    <ul>
+                                        <li><strong>If nobody won and no Kong was declared during the hand:</strong> The dealer remains dealer</li>
+                                        <li><strong>If the hand is drawn but there were Kongs declared:</strong> The dealer rotates to the next player</li>
+                                    </ul>
+                                    <div class="note">
+                                        <p>A draw occurs when the wall is exhausted (no more tiles to draw) and no one has declared a winning hand.</p>
+                                    </div>
+                                    <div class="info note">
+                                        <p><strong>Note:</strong> In a draw, there is no scoring or payment between players for the hand itself. However, any immediate payments that occurred during the hand remain valid.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="scoring" class="section">
+                    <h2><i class="fas fa-calculator"></i> 3. Scoring and Payout</h2>
+                    <div id="points-system" class="subsection">
+                        <h3><i class="fas fa-coins"></i> 3.1 Overview of Points (Tai) and Doubles System</h3>
+                        <p>In Singapore Mahjong, scoring is based on "tai" (points) that determine the value of a winning hand.</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Key Scoring Concepts</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>Each winning hand is evaluated for patterns and bonuses that contribute tai points</li>
+                                    <li>
+                                        With each additional tai, the payout doubles:
+                                        <div style="display: flex; flex-wrap: wrap; gap: 15px; margin: 10px 0;">
+                                            <div style="border: 1px solid #ccc; padding: 8px 15px; border-radius: 5px; background-color: #f9f9f9;">1 tai → base score = 1</div>
+                                            <div style="border: 1px solid #ccc; padding: 8px 15px; border-radius: 5px; background-color: #f9f9f9;">2 tai → doubles once = 2</div>
+                                            <div style="border: 1px solid #ccc; padding: 8px 15px; border-radius: 5px; background-color: #f9f9f9;">3 tai → doubles twice = 4</div>
+                                            <div style="border: 1px solid #ccc; padding: 8px 15px; border-radius: 5px; background-color: #f9f9f9;">4 tai → doubles thrice = 8</div>
+                                            <div style="border: 1px solid #ccc; padding: 8px 15px; border-radius: 5px; background-color: #f9f9f9;">5 tai → doubles four times = 16</div>
+                                        </div>
+                                    </li>
+                                    <li>Any hand that scores 5 or more tai is treated as a "limit" hand (capped at 5 tai = 16x base)</li>
+                                    <li>A hand must have at least 1 tai to be a valid win</li>
+                                </ul>
+                                <div class="example">
+                                    <h5>Example</h5>
+                                    <p>If the base betting unit is $1:</p>
+                                    <ul>
+                                        <li>A 1 tai hand would pay $1 per unit</li>
+                                        <li>A 3 tai hand would pay $4 per unit</li>
+                                        <li>A 5 tai (limit) hand would pay $16 per unit</li>
+                                    </ul>
+                                    <p>The exact payout depends on whether the win was by self-draw or on a discard (see section 3.4).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="scoring-combinations" class="subsection">
+                        <h3><i class="fas fa-list-alt"></i> 3.2 Scoring Combinations (Fan/Tai) List</h3>
+                        <div class="tabs">
+                            <div class="tab active" data-tab="one-tai">1 Tai</div>
+                            <div class="tab" data-tab="two-tai">2 Tai</div>
+                            <div class="tab" data-tab="three-tai">3 Tai</div>
+                            <div class="tab" data-tab="four-tai">4 Tai</div>
+                            <div class="tab" data-tab="limit">5 Tai (Limit)</div>
+                        </div>
+                        <div class="tab-content active" id="one-tai">
+                            <h4>One-Tai (1 Point) Combinations</h4>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Flower/Season Tile (Seat Flower)</strong>
+                                            <p>Each flower or season tile that matches the player's own seat wind</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Dragon Pong</strong>
+                                            <p>A meld of three identical dragons</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Seat Wind Pong</strong>
+                                            <p>A pong of the player's own seat wind</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Prevailing Wind Pong</strong>
+                                            <p>A pong of the current round's wind</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Little Ping Hu</strong>
+                                            <p>Hand with 4 chows and a non-scoring pair</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Fully Concealed Hand</strong>
+                                            <p>No exposed melds and self-drawn win</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Winning on Replacement</strong>
+                                            <p>Winning on a tile drawn after Kong/bonus</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Robbing a Kong</strong>
+                                            <p>Winning by taking another's Kong tile</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Winning on the Last Tile</strong>
+                                            <p>Winning on the last possible tile</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="two-tai">
+                            <h4>Two-Tai (2 Points) Combinations</h4>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Flower/Season Set</strong>
+                                            <p>All four flowers or all four seasons</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Half Flush</strong>
+                                            <p>One suit plus honor tiles</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>All Pungs</strong>
+                                            <p>Hand of only pongs/kongs and a pair</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="three-tai">
+                            <h4>Three-Tai (3 Points) Combinations</h4>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div style="padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                        <strong>Little Dragons</strong>
+                                        <p>Two dragon pongs and pair of third dragon</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="four-tai">
+                            <h4>Four-Tai (4 Points) Combinations</h4>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Ping Hu</strong>
+                                            <p>Clean hand of all chows, no bonus tiles</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Full Flush</strong>
+                                            <p>All tiles from one suit, no honors</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>All Terminals or Honors</strong>
+                                            <p>Every tile is a 1, 9, or honor</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Little Winds</strong>
+                                            <p>Three wind pongs and pair of fourth</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="limit">
+                            <h4>Five-Tai (Limit) Combinations</h4>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                        <div style="flex: 1; min-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Seven Flowers and Robbing the Last</strong>
+                                            <p>Having 7 flowers/seasons and robbing 8th</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>All 8 Flowers and Seasons</strong>
+                                            <p>Collecting all flower and season tiles</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Big Dragons</strong>
+                                            <p>Three dragon pongs</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Big Winds</strong>
+                                            <p>Four wind pongs</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>All Honours</strong>
+                                            <p>Hand of only winds and dragons</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>All Terminals</strong>
+                                            <p>Hand of only 1s and 9s</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Hidden Treasure</strong>
+                                            <p>Four concealed pungs and self-drawn win</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Thirteen Orphans</strong>
+                                            <p>One of each terminal and honor + a pair</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Four Kongs</strong>
+                                            <p>Four kongs plus a pair</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Kong on Kong</strong>
+                                            <p>Multiple kongs on one turn, win on last</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Heavenly Hand</strong>
+                                            <p>Dealer wins with initial tiles</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 300px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <strong>Earthly Hand</strong>
+                                            <p>Non-dealer wins on first turn</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bonus-points" class="subsection">
+                        <h3><i class="fas fa-gift"></i> 3.3 Bonus Tile Points and Immediate Payments</h3>
+                        <p>In addition to contributing to tai, bonus tiles have special payment rules.</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Flower/Season Set Payouts</h4>
+                            </div>
+                            <div class="card-body">
+                                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                    <div style="flex: 1; min-width: 300px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5><i class="fas fa-ring"></i> "Wedding" Event</h5>
+                                        <p>Getting both one's own Flower and Season:</p>
+                                        <ul>
+                                            <li>If in initial deal: Each opponent pays concealed kong rate (2 points)</li>
+                                            <li>If collected during play: Each pays melded kong rate (1 point)</li>
+                                        </ul>
+                                    </div>
+                                    <div style="flex: 1; min-width: 300px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5><i class="fas fa-th"></i> Complete Group</h5>
+                                        <p>Collecting all four flowers or all four seasons yields an immediate payout equivalent to a concealed kong (2 points from each player).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h4 class="card-title">Kong Payouts</h4>
+                            </div>
+                            <div class="card-body">
+                                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                    <div style="flex: 1; min-width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5>Concealed Kong</h5>
+                                        <p>Each opponent pays 2× base</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5>Exposed Kong</h5>
+                                        <p>Each opponent pays 1× base</p>
+                                    </div>
+                                </div>
+                                <div class="note" style="margin-top: 15px;">
+                                    <p>These payments are immediate when the Kong is declared and are separate from final scoring.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h4 class="card-title">Pay-for-All Penalty</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>If a player makes a dangerous discard that feeds a high-scoring hand, that player becomes liable to pay the entire payout on behalf of all players.</p>
+                                <h5 style="margin-top: 15px;">Specific Scenarios:</h5>
+                                <ul>
+                                    <li>Feeding a tile that lets someone directly win a limit hand (5 tai)</li>
+                                    <li>Feeding the tile that is taken for the last needed meld of Little Dragons or Little Winds</li>
+                                </ul>
+                                <div class="example">
+                                    <h5>Example</h5>
+                                    <p>Player A has exposed pongs of Red and Green dragons. Player B discards White dragon, which Player A claims to complete Big Dragons (all three dragon pongs) and win with a limit hand.</p>
+                                    <p>Since Player B fed the critical tile for a limit hand, they must pay the entire winning amount (64 units for a discard win with 5 tai) instead of the normal 32 units they would pay as the discarder.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="payout-calculation" class="subsection">
+                        <h3><i class="fas fa-chart-line"></i> 3.4 Payout Calculation</h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Payout Process</h4>
+                            </div>
+                            <div class="card-body">
+                                <ol>
+                                    <li>Calculate total tai for the winning hand (cap at 5 if over)</li>
+                                    <li>Convert tai to score multiplier (1→1, 2→2, 3→4, 4→8, 5→16)</li>
+                                    <li>Determine payment distribution based on win type</li>
+                                </ol>
+                                <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
+                                    <div style="flex: 1; min-width: 300px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5>Payment for Discard Win</h5>
+                                        <ul>
+                                            <li>The player who discarded the winning tile pays 2×X</li>
+                                            <li>Each of the other two losing players pays 1×X</li>
+                                            <li>The winner receives 4×X total</li>
+                                        </ul>
+                                    </div>
+                                    <div style="flex: 1; min-width: 300px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5>Payment for Self-Draw Win</h5>
+                                        <ul>
+                                            <li>All three opponents pay 2×X each</li>
+                                            <li>The winner receives 6×X total</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Payout Reference Table</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Points (Tai)</th>
+                                                    <th>Score Multiple</th>
+                                                    <th>If Won on Discard:<br>Each non-discarder pays</th>
+                                                    <th>Discarder pays</th>
+                                                    <th>Winner receives</th>
+                                                    <th>If Self-Drawn:<br>Each opponent pays</th>
+                                                    <th>Winner receives</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1 tai</td>
+                                                    <td>1</td>
+                                                    <td>$1</td>
+                                                    <td>$2</td>
+                                                    <td>$4</td>
+                                                    <td>$2 each</td>
+                                                    <td>$6</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2 tai</td>
+                                                    <td>2</td>
+                                                    <td>$2</td>
+                                                    <td>$4</td>
+                                                    <td>$8</td>
+                                                    <td>$4 each</td>
+                                                    <td>$12</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3 tai</td>
+                                                    <td>4</td>
+                                                    <td>$4</td>
+                                                    <td>$8</td>
+                                                    <td>$16</td>
+                                                    <td>$8 each</td>
+                                                    <td>$24</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4 tai</td>
+                                                    <td>8</td>
+                                                    <td>$8</td>
+                                                    <td>$16</td>
+                                                    <td>$32</td>
+                                                    <td>$16 each</td>
+                                                    <td>$48</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5 tai (Limit)</td>
+                                                    <td>16</td>
+                                                    <td>$16</td>
+                                                    <td>$32</td>
+                                                    <td>$64</td>
+                                                    <td>$32 each</td>
+                                                    <td>$96</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="note" style="margin-top: 15px;">
+                                        <p>This table assumes $1 as the base unit. Multiply all values by your agreed base stake.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="scoring-summary" class="subsection">
+                        <h3><i class="fas fa-file-alt"></i> 3.5 Summary of Included and Excluded Scoring Mechanics</h3>
+                        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                            <div style="flex: 1; min-width: 300px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                                <h4><i class="fas fa-check-circle" style="color: #4caf50;"></i> Included</h4>
+                                <ul>
+                                    <li>Standard combination scoring as listed</li>
+                                    <li>Self-draw/discarder payout rules</li>
+                                    <li>Immediate bonuses for kongs/bonus sets</li>
+                                    <li>Pay-for-all penalty rules</li>
+                                </ul>
+                            </div>
+                            <div style="flex: 1; min-width: 300px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                                <h4><i class="fas fa-times-circle" style="color: #f44336;"></i> Excluded</h4>
+                                <ul>
+                                    <li>No "East pays/receives double"</li>
+                                    <li>No "limit breakers" beyond 5</li>
+                                    <li>No separate scoring for 7 pairs (not allowed)</li>
+                                    <li>No Japanese yaku</li>
+                                    <li>No "Goulash" or bonus rounds</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="note" style="margin-top: 20px;">
+                            <p><strong>Change Management:</strong> Once approved, these scoring rules remain consistent. Any change like altering a combination's value or introducing a new combo would require a formal change request.</p>
+                        </div>
+                    </div>
+                </section>
+                <section id="developer-guide" class="section">
+                    <h2><i class="fas fa-code"></i> 4. Developer Implementation Guide</h2>
+                    <div id="system-architecture" class="subsection">
+                        <h3><i class="fas fa-sitemap"></i> 4.1 System Architecture & Data Structures</h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Recommended Data Structures</h4>
+                            </div>
+                            <div class="card-body">
+                                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                    <div style="flex: 1; min-width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5><i class="fas fa-th"></i> Tile Representation</h5>
+                                        <p>Class or struct with properties for suit, rank, ID</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5><i class="fas fa-user"></i> Player State</h5>
+                                        <p>Class with handTiles, melds, bonusTiles, wind, score, flags</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5><i class="fas fa-chess-board"></i> Game State</h5>
+                                        <p>Object holding wall, deadWall, discardPile, currentPlayerIndex, etc.</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+                                        <h5><i class="fas fa-layer-group"></i> Meld Structure</h5>
+                                        <p>Array of Tiles, type, exposed flag</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 style="margin-top: 20px;">Modularity</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <ul>
+                                    <li>Separate game rules logic from UI and input handling</li>
+                                    <li>Make scoring calculation its own module for easy testing</li>
+                                    <li>Use interfaces or abstract classes to allow for variant rules in the future</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="example" style="margin-top: 20px;">
+                            <h4>Example Tile Class</h4>
+                            <pre><code>
+class Tile {
+    enum Suit { DOTS, BAMBOO, CHARACTER, WIND, DRAGON, FLOWER, SEASON }
+    
+    Suit suit;
+    int rank;         // 1-9 for suits, 1-4 for winds/flowers/seasons, 1-3 for dragons
+    int uniqueId;     // 0-147 for unique identification
+    
+    // Methods for comparison, display, etc.
+    boolean isHonor() {
+        return suit == Suit.WIND || suit == Suit.DRAGON;
+    }
+    
+    boolean isBonus() {
+        return suit == Suit.FLOWER || suit == Suit.SEASON;
+    }
+    
+    boolean isTerminal() {
+        return (suit == Suit.DOTS || suit == Suit.BAMBOO || suit == Suit.CHARACTER) 
+                && (rank == 1 || rank == 9);
+    }
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                    <div id="game-flow" class="subsection">
+                        <h3><i class="fas fa-project-diagram"></i> 4.2 Game Flow Logic (Turn Cycle Implementation)</h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Game States</h4>
+                            </div>
+                            <div class="card-body">
+                                <ol>
+                                    <li><strong>Initial Setup:</strong> Assign seats, build wall, deal tiles, do bonus replacement</li>
+                                    <li><strong>Turn Start:</strong> Check for wall empty, current player draws</li>
+                                    <li><strong>Bonus/Kong Handling:</strong> Handle bonus replacements, kong declarations</li>
+                                    <li><strong>Discard Phase:</strong> Player chooses a tile to discard</li>
+                                    <li><strong>Claim Window:</strong> Check for win, pong/kong, or chow claims</li>
+                                    <li><strong>End of Hand:</strong> Handle scoring, payments, dealer changes</li>
+                                </ol>
+                                <div class="info note">
+                                    <p><strong>Implementation Note:</strong> The turn-by-turn flow can be implemented as a state machine or sequential loop. Use events to handle claims that can interrupt the normal turn order.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <h4>State Diagram</h4>
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDgwMCA1MDAiPgogIDxzdHlsZT4KICAgIC5zdGF0ZSB7IGZpbGw6ICNFOEYwRkU7IHN0cm9rZTogIzFFODhFNTsgc3Ryb2tlLXdpZHRoOiAyOyB9CiAgICAuc3RhcnQtZW5kIHsgZmlsbDogIzgxQzc4NDsgc3Ryb2tlOiAjMzg4RTNCOyBzdHJva2Utd2lkdGg6IDI7IH0KICAgIC5hcnJvdyB7IHN0cm9rZTogIzMzMzsgc3Ryb2tlLXdpZHRoOiAxLjU7IGZpbGw6IG5vbmU7IHN0cm9rZS1kYXNoYXJyYXk6IG5vbmU7IH0KICAgIC5hcnJvd2hlYWQgeyBmaWxsOiAjMzMzOyB9CiAgICAubGFiZWwgeyBmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgfQogIDwvc3R5bGU+CiAgCiAgPCEtLSBNYWluIFN0YXRlcyAtLT4KICA8cmVjdCB4PSIzMjAiIHk9IjQwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiByeD0iOCIgcnk9IjgiIGNsYXNzPSJzdGF0ZSIvPgogIDx0ZXh0IHg9IjM4MCIgeT0iNjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGNsYXNzPSJsYWJlbCI+R2FtZSBTZXR1cDwvdGV4dD4KCiAgPHJlY3QgeD0iMzIwIiB5PSIxMjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNDAiIHJ4PSI4IiByeT0iOCIgY2xhc3M9InN0YXRlIi8+CiAgPHRleHQgeD0iMzgwIiB5PSIxNDUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGNsYXNzPSJsYWJlbCI+VHVybiBTdGFydDwvdGV4dD4KCiAgPHJlY3QgeD0iMzIwIiB5PSIyMDAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNDAiIHJ4PSI4IiByeT0iOCIgY2xhc3M9InN0YXRlIi8+CiAgPHRleHQgeD0iMzgwIiB5PSIyMjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGNsYXNzPSJsYWJlbCI+RHJhd2luZzwvdGV4dD4KCiAgPHJlY3QgeD0iMzIwIiB5PSIyODAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNDAiIHJ4PSI4IiByeT0iOCIgY2xhc3M9InN0YXRlIi8+CiAgPHRleHQgeD0iMzgwIiB5PSIzMDUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGNsYXNzPSJsYWJlbCI+TWVsZGluZzwvdGV4dD4KCiAgPHJlY3QgeD0iMzIwIiB5PSIzNjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNDAiIHJ4PSI4IiByeT0iOCIgY2xhc3M9InN0YXRlIi8+CiAgPHRleHQgeD0iMzgwIiB5PSIzODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGNsYXNzPSJsYWJlbCI+RGlzY2FyZGluZzwvdGV4dD4KCiAgPHJlY3QgeD0iMzIwIiB5PSI0NDAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNDAiIHJ4PSI4IiByeT0iOCIgY2xhc3M9InN0YXRlIi8+CiAgPHRleHQgeD0iMzgwIiB5PSI0NjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGNsYXNzPSJsYWJlbCI+Q2xhaW0gV2luZG93PC90ZXh0PgoKICA8IS0tIFNpZGUgU3RhdGVzIC0tPgogIDxyZWN0IHg9IjUwMCIgeT0iMjAwIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgcnk9IjgiIGNsYXNzPSJzdGF0ZSIvPgogIDx0ZXh0IHg9IjU3MCIgeT0iMjI1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBjbGFzcz0ibGFiZWwiPkJvbnVzIFJlcGxhY2VtZW50PC90ZXh0PgoKICA8cmVjdCB4PSI1MDAiIHk9IjI0MCIgd2lkdGg9IjE0MCIgaGVpZ2h0PSI0MCIgcng9IjgiIHJ5PSI4IiBjbGFzcz0ic3RhdGUiLz4KICA8dGV4dCB4PSI1NzAiIHk9IjI2NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgY2xhc3M9ImxhYmVsIj5Lb25nIFJlcGxhY2VtZW50PC90ZXh0PgoKICA8cmVjdCB4PSI1MDAiIHk9IjEyMCIgd2lkdGg9IjE0MCIgaGVpZ2h0PSI0MCIgcng9IjgiIHJ5PSI4IiBjbGFzcz0ic3RhdGUiLz4KICA8dGV4dCB4PSI1NzAiIHk9IjE0NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgY2xhc3M9ImxhYmVsIj5IYW5kIEVuZCAoRHJhdyk8L3RleHQ+CgogIDxyZWN0IHg9IjE0MCIgeT0iMjQwIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgcnk9IjgiIGNsYXNzPSJzdGF0ZSIvPgogIDx0ZXh0IHg9IjIxMCIgeT0iMjY1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBjbGFzcz0ibGFiZWwiPldpbiBEZWNsYXJhdGlvbjwvdGV4dD4KCiAgPHJlY3QgeD0iNTAwIiB5PSIzNjAiIHdpZHRoPSIxNDAiIGhlaWdodD0iNDAiIHJ4PSI4IiByeT0iOCIgY2xhc3M9InN0YXRlIi8+CiAgPHRleHQgeD0iNTcwIiB5PSIzODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGNsYXNzPSJsYWJlbCI+TWVsZCBDbGFpbTwvdGV4dD4KCiAgPGNpcmNsZSBjeD0iMjEwIiBjeT0iMzYwIiByPSIyNSIgY2xhc3M9InN0YXJ0LWVuZCIvPgogIDx0ZXh0IHg9IjIxMCIgeT0iMzY1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBjbGFzcz0ibGFiZWwiPlNjb3Jpbmc8L3RleHQ+CgogIDwhLS0gQXJyb3dzIC0tPgogIDxwYXRoIGQ9Ik0gMzgwIDgwIEwgMzgwIDExMCIgY2xhc3M9ImFycm93IiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93aGVhZCkiLz4KICA8cGF0aCBkPSJNIDM4MCAxNjAgTCAzODAgMTkwIiBjbGFzcz0iYXJyb3ciIG1hcmtlci1lbmQ9InVybCgjYXJyb3doZWFkKSIvPgogIDxwYXRoIGQ9Ik0gMzgwIDI0MCBMIDM4MCAyNzAiIGNsYXNzPSJhcnJvdyIgbWFya2VyLWVuZD0idXJsKCNhcnJvd2hlYWQpIi8+CiAgPHBhdGggZD0iTSAzODAgMzIwIEwgMzgwIDM1MCIgY2xhc3M9ImFycm93IiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93aGVhZCkiLz4KICA8cGF0aCBkPSJNIDM4MCA0MDBMIDM4MCA0MzAiIGNsYXNzPSJhcnJvdyIgbWFya2VyLWVuZD0idXJsKCNhcnJvd2hlYWQpIi8+CgogIDxwYXRoIGQ9Ik0gMzIwIDIyMCBMIDI4MCAyMjAgTCAyODAgMjQwIEwgMjgwIDI2MCBMIDI5MCAyNjAiIGNsYXNzPSJhcnJvdyIgbWFya2VyLWVuZD0idXJsKCNhcnJvd2hlYWQpIi8+CiAgPHBhdGggZD0iTSAzMjAgMzAwIEwgMjgwIDMwMCBMIDI4MCAzNjAgTCAyNDAgMzYwIiBjbGFzcz0iYXJyb3ciIG1hcmtlci1lbmQ9InVybCgjYXJyb3doZWFkKSIvPgogIAogIDxwYXRoIGQ9Ik0gNDQwIDIyMCBMIDQ5MCAyMjAiIGNsYXNzPSJhcnJvdyIgbWFya2VyLWVuZD0idXJsKCNhcnJvd2hlYWQpIi8+CiAgPHBhdGggZD0iTSA0NDAgMzAwIEwgNDkwIDI2MCIgY2xhc3M9ImFycm93IiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93aGVhZCkiLz4KICA8cGF0aCBkPSJNIDQ0MCA0NjAgTCA0OTAgNDYwIEwgNDkwIDM5MCIgY2xhc3M9ImFycm93IiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93aGVhZCkiLz4KCiAgPHBhdGggZD0iTSA0NDAgMTQwIEwgNDkwIDE0MCIgY2xhc3M9ImFycm93IiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93aGVhZCkiLz4KICA8cGF0aCBkPSJNIDU3MCAxODAgTCA1NzAgMTcwIiBjbGFzcz0iYXJyb3ciIHN0cm9rZS1kYXNoYXJyYXk9IjQsNCIvPgogIDxwYXRoIGQ9Ik0gNTcwIDI4MCBMIDU3MCAyNzAiIGNsYXNzPSJhcnJvdyIgc3Ryb2tlLWRhc2hhcnJheT0iNCw0Ii8+CiAgPHBhdGggZD0iTSA2NDAgMjQwIEwgNzAwIDI0MCBMCA3MDAgMTQwIEwgNjQwIDE0MCIgY2xhc3M9ImFycm93IiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93aGVhZCkiLz4KCiAgPHBhdGggZD0iTSAxNzAgMjgwIEwgMTcwIDM2MCIgY2xhc3M9ImFycm93IiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93aGVhZCkiLz4KICA8cGF0aCBkPSJNIDY0MCAzODAgTCA3MDAgMzgwIEwgNzAwIDIwMCBMIDY0MCAyMDAiIGNsYXNzPSJhcnJvdyIgbWFya2VyLWVuZD0idXJsKCNhcnJvd2hlYWQpIi8+CgogIDxwYXRoIGQ9Ik0gMjUwIDM2MCBMIDI4MCAzNjAgTCAyODAgNDYwIEwgMzE1IDQ2MCIgY2xhc3M9ImFycm93IiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93aGVhZCkiLz4KCiAgPHBhdGggZD0iTSAyODAgMTQwIEwgMTAwIDE0MCBMIDM4MCA1MCBMIDM4MCAzMCIgY2xhc3M9ImFycm93IiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93aGVhZCkiLz4KCiAgPCEtLSBBcnJvd2hlYWQgbWFya2VyIC0tPgogIDxkZWZzPgogICAgPG1hcmtlciBpZD0iYXJyb3doZWFkIiBtYXJrZXJXaWR0aD0iMTAiIG1hcmtlckhlaWdodD0iNyIgcmVmWD0iMCIgcmVmWT0iMy41IiBvcmllbnQ9ImF1dG8iPgogICAgICA8cG9seWdvbiBwb2ludHM9IjAgMCwgMTAgMy41LCAwIDciIGNsYXNzPSJhcnJvd2hlYWQiLz4KICAgIDwvbWFya2VyPgogIDwvZGVmcz4KPC9zdmc+Cg==" alt="Game Flow State Diagram" style="width: 100%; max-width: 800px; margin: 0 auto; display: block;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="meld-detection" class="subsection">
+                        <h3><i class="fas fa-search"></i> 4.3 Meld and Win Detection Algorithms</h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Key Algorithms</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li><strong>Winning Hand Check:</strong> A recursive or depth-first search that tries to partition the 14 tiles into 4 melds + 1 pair</li>
+                                    <li><strong>Wait Hand Identification:</strong> Determine which tiles would complete the hand</li>
+                                    <li><strong>Scoring Computation:</strong> Evaluate which scoring combos apply to a winning hand</li>
+                                    <li><strong>Claim Validation:</strong> Ensure players have the required tiles for claimed melds</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="example" style="margin-top: 20px;">
+                            <h4>Winning Hand Detection Pseudocode</h4>
+                            <pre><code>
+function isWinningHand(tiles):
+    // Check special hands (Thirteen Orphans, etc.)
+    if isThirteenOrphans(tiles):
+        return true
+        
+    // Try each possible pair
+    for each possible pair in tiles:
+        remove pair from tiles temporarily
+        remainingTiles = tiles without pair
+        
+        if canFormMelds(remainingTiles):
+            return true
+        
+        put pair back into tiles
+    
+    return false
+function canFormMelds(tiles):
+    if tiles is empty:
+        return true
+    
+    // Try to form a pong
+    if tiles has 3 identical:
+        remove them
+        if canFormMelds(remaining):
+            return true
+        put them back
+    
+    // Try to form a chow
+    if tiles has 3 consecutive in same suit:
+        remove them
+        if canFormMelds(remaining):
+            return true
+        put them back
+    
+    return false
+                            </code></pre>
+                        </div>
+                    </div>
+                    <div id="modularity" class="subsection">
+                        <h3><i class="fas fa-puzzle-piece"></i> 4.7 Modularity and Maintenance</h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Design Principles</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>Keep rule parameters as constants or config values for easy changes</li>
+                                    <li>Make scoring combos data-driven when possible</li>
+                                    <li>Write clear comments referencing specific rules</li>
+                                    <li>Create unit tests for each rule component</li>
+                                </ul>
+                                <div class="example">
+                                    <h5>Example: Configuration-Driven Approach</h5>
+                                    <pre><code>
+// Instead of hardcoding values
+if (tai >= 5) tai = 5; // Limit
+// Use configuration parameters
+const RULES = {
+    MAX_TAI: 5,              // Maximum tai limit
+    MIN_TAI_TO_WIN: 1,       // Minimum tai required to win
+    DEAD_WALL_SIZE: 15,      // Number of tiles in dead wall
+    ALLOW_SEVEN_PAIRS: false // Not allowed in Singapore rules
+};
+if (tai >= RULES.MAX_TAI) tai = RULES.MAX_TAI;
+                                    </code></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info note" style="margin-top: 20px;">
+                            <p><strong>Recommendation:</strong> Create a separate Rules class that encapsulates all game rules. This makes it easier to modify specific rules or create variants in the future.</p>
+                        </div>
+                    </div>
+                </section>
+                <section id="scope" class="section">
+                    <h2><i class="fas fa-tasks"></i> 5. Scope and Change Management</h2>
+                    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                        <div style="flex: 1; min-width: 300px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                            <h4><i class="fas fa-check-circle" style="color: #4caf50;"></i> Included Scope</h4>
+                            <ul>
+                                <li>4-player Singapore Mahjong with the exact rules detailed</li>
+                                <li>Standard tile set with flowers</li>
+                                <li>All meld and win rules as described</li>
+                                <li>Scoring system and bonus/penalty rules as defined</li>
+                            </ul>
+                        </div>
+                        <div style="flex: 1; min-width: 300px; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                            <h4><i class="fas fa-times-circle" style="color: #f44336;"></i> Exclusions</h4>
+                            <ul>
+                                <li>No 3-player Mahjong</li>
+                                <li>No alternate scoring systems (Taiwanese, HK rules, etc.)</li>
+                                <li>No ghost players</li>
+                                <li>No custom jokers or extra tiles</li>
+                                <li>No gambling side-bets</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top: 20px;">
+                        <div class="card-header">
+                            <h4 class="card-title">Change Management</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>Any behavior not matching this document is considered a bug to be fixed (unless the document itself is found to be in error and formally corrected). Any changes to the rules require formal change requests.</p>
+                            <h5 style="margin-top: 15px;">Change Request Process</h5>
+                            <ol>
+                                <li>Submit formal change request documenting the proposed rule modification</li>
+                                <li>Evaluate impact on existing code and game balance</li>
+                                <li>If approved, update documentation and code</li>
+                                <li>Test thoroughly for unexpected side effects</li>
+                                <li>Release as a clearly versioned update</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+                <section id="additional-resources" class="section">
+                    <h2>Additional Developer Resources</h2>
+                    <div id="data-structures" class="subsection">
+                        <h3>Data Structures</h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Common Data Structures</h4>
+                            </div>
+                            <div class="card-body">
+                                <pre><code>
+// Game Configuration
+struct GameConfig {
+    int baseBet = 1;             // Base betting unit
+    int taiLimit = 5;            // Maximum tai points
+    int deadWallSize = 15;       // Number of tiles in dead wall
+    bool allowSevenPairs = false; // Singapore rules: false
+}
+// Player State
+class Player {
+    List&lt;Tile&gt; handTiles;        // Concealed hand tiles
+    List&lt;Meld&gt; melds;            // Exposed melds
+    List&lt;Tile&gt; bonusTiles;       // Flowers, seasons
+    Wind seatWind;               // East, South, West, North
+    int score;                   // Current score/money
+    bool isDealer;               // Is current dealer
+    List&lt;int&gt; skipTiles;         // Tiles player cannot claim
+}
+// Game State
+class GameState {
+    List&lt;Tile&gt; wall;             // Main drawing wall
+    List&lt;Tile&gt; deadWall;         // Replacement tiles
+    List&lt;Tile&gt; discards;         // Discarded tiles
+    int currentPlayerIndex;      // Whose turn (0-3)
+    Wind prevailingWind;         // Current round wind
+    GamePhase currentPhase;      // Current phase of play
+    Tile lastDiscard;            // Last discarded tile
+    Player[] players;            // The four players
+    Dictionary&lt;int, int&gt; payAllFlags; // Maps winner to payer for bao
+}
+// Meld Types
+enum MeldType { PONG, KONG, CHOW }
+// Meld Structure
+class Meld {
+    MeldType type;               // Pong, Kong, or Chow
+    List&lt;Tile&gt; tiles;            // The 3-4 tiles in the meld
+    bool isConcealed;            // If Kong: was it formed entirely from hand
+    bool wasStolen;              // True if formed by claiming a discard
+}
+// Claim Types
+enum ClaimType { WIN, PONG, KONG, CHOW, NONE }
+// Game Phases
+enum GamePhase {
+    GAME_START,
+    DEALER_DISCARD,
+    TURN_START,
+    DRAWING,
+    BONUS_REPLACEMENT,
+    KONG_REPLACEMENT,
+    MELDING,
+    DISCARDING,
+    CLAIM_WINDOW,
+    HAND_END,
+    SCORING
+}
+                                </code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="algorithms" class="subsection">
+                        <h3>Key Algorithms</h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Tile Distribution Algorithm</h4>
+                            </div>
+                            <div class="card-body">
+                                <pre><code>
+function dealTiles():
+    // Shuffle tiles
+    shuffledTiles = randomShuffle(allTiles)
+    
+    // Determine break point
+    breakPoint = randomInt(0, 147)
+    
+    // Rotate array so break is at start
+    wall = rotateArray(shuffledTiles, breakPoint)
+    
+    // Deal to players
+    dealer.handTiles = wall.slice(0, 14)
+    south.handTiles = wall.slice(14, 27)
+    west.handTiles = wall.slice(27, 40)
+    north.handTiles = wall.slice(40, 53)
+    
+    // Set dead wall and remaining wall
+    deadWall = wall.slice(wall.length - 15)
+    remainingWall = wall.slice(53, wall.length - 15)
+                                </code></pre>
+                            </div>
+                        </div>
+                        <div class="card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h4 class="card-title">Scoring Algorithm</h4>
+                            </div>
+                            <div class="card-body">
+                                <pre><code>
+function calculateScore(hand, winInfo):
+    totalTai = 0
+    
+    // Check for limit hands first (5 tai)
+    if isLimitHand(hand):
+        return 5
+    
+    // Check all scoring patterns
+    if hasDragonPong(hand):
+        totalTai += 1
+    
+    if hasSeatWindPong(hand):
+        totalTai += 1
+    
+    // Continue checking all patterns...
+    
+    // Apply maximum
+    return min(totalTai, 5)
+                                </code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="state-machine" class="subsection">
+                        <h3>State Machine</h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Turn Cycle State Machine</h4>
+                            </div>
+                            <div class="card-body">
+                                <pre><code>
+function processTurn():
+    switch (currentPhase):
+        case GAME_START:
+            initializeGame()
+            currentPhase = DEALER_DISCARD
+            
+        case DEALER_DISCARD:
+            dealer.discard(chosenTile)
+                                    lastDiscard = chosenTile
+            currentPhase = CLAIM_WINDOW
+            
+        case TURN_START:
+            if isWallEmpty():
+                endHand(DRAW)
+                return
+            currentPhase = DRAWING
+            
+        case DRAWING:
+            currentTile = drawTile(currentPlayer)
+            if currentTile.isBonus():
+                declareBonusTile(currentTile)
+                currentPhase = BONUS_REPLACEMENT
+            else:
+                currentPlayer.handTiles.add(currentTile)
+                currentPhase = MELDING
+                
+        // ... other state handlers
+                                </code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="test-cases" class="subsection">
+                        <h3>Test Cases</h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Example Test Cases</h4>
+                            </div>
+                            <div class="card-body">
+                                <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                    <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                        <strong>Deal Test</strong>
+                                        <p>Verify correct number of tiles dealt to each player</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                        <strong>Bonus Replacement Test</strong>
+                                        <p>Verify bonus tiles are properly declared and replaced</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                        <strong>Claim Priority Test</strong>
+                                        <p>Verify win beats pong beats chow</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                        <strong>Kong Robbing Test</strong>
+                                        <p>Verify a player can rob a kong to win</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                        <strong>Scoring Test</strong>
+                                        <p>Verify various hand patterns score correctly</p>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                        <strong>Payout Test</strong>
+                                        <p>Verify correct payments for self-draw vs discard wins</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="reference-tables" class="section">
+                    <h2>User References</h2>
+                    <div id="tai-reference" class="subsection">
+                        <h3>Tai Point Reference</h3>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Points</th>
+                                                <th>Pattern</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td rowspan="8">1 Tai</td>
+                                                <td>Seat Flower/Season</td>
+                                                <td>Each flower or season matching your seat wind</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dragon Pong</td>
+                                                <td>A meld of three identical dragons</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Seat Wind Pong</td>
+                                                <td>A pong of your seat wind</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Prevailing Wind Pong</td>
+                                                <td>A pong of the current round's wind</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Little Ping Hu</td>
+                                                <td>Hand with 4 chows and a non-scoring pair</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fully Concealed Hand</td>
+                                                <td>No exposed melds and self-drawn win</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Winning on Replacement</td>
+                                                <td>Winning on a tile drawn after Kong/bonus</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Robbing a Kong</td>
+                                                <td>Winning by taking another's Kong tile</td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="3">2 Tai</td>
+                                                <td>Flower/Season Set</td>
+                                                <td>All four flowers or all four seasons</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Half Flush</td>
+                                                <td>One suit plus honor tiles</td>
+                                            </tr>
+                                            <tr>
+                                                <td>All Pungs</td>
+                                                <td>Hand of only pongs/kongs and a pair</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3 Tai</td>
+                                                <td>Little Dragons</td>
+                                                <td>Two dragon pongs and pair of third dragon</td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="4">4 Tai</td>
+                                                <td>Ping Hu</td>
+                                                <td>Clean hand of all chows, no bonus tiles</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Full Flush</td>
+                                                <td>All tiles from one suit, no honors</td>
+                                            </tr>
+                                            <tr>
+                                                <td>All Terminals or Honors</td>
+                                                <td>Every tile is a 1, 9, or honor</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Little Winds</td>
+                                                <td>Three wind pongs and pair of fourth</td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="12">5 Tai (Limit)</td>
+                                                <td>Seven Flowers and Robbing Last</td>
+                                                <td>Having 7 flowers/seasons and robbing 8th</td>
+                                            </tr>
+                                            <tr>
+                                                <td>All 8 Flowers and Seasons</td>
+                                                <td>Collecting all flower and season tiles</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Big Dragons</td>
+                                                <td>Three dragon pongs</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Big Winds</td>
+                                                <td>Four wind pongs</td>
+                                            </tr>
+                                            <tr>
+                                                <td>All Honours</td>
+                                                <td>Hand of only winds and dragons</td>
+                                            </tr>
+                                            <tr>
+                                                <td>All Terminals</td>
+                                                <td>Hand of only 1s and 9s</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Hidden Treasure</td>
+                                                <td>Four concealed pungs and self-drawn win</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Thirteen Orphans</td>
+                                                <td>One of each terminal and honor + a pair</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Four Kongs</td>
+                                                <td>Four kongs plus a pair</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Kong on Kong</td>
+                                                <td>Multiple kongs on one turn, win on last</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Heavenly Hand</td>
+                                                <td>Dealer wins with initial tiles</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Earthly Hand</td>
+                                                <td>Non-dealer wins on first turn</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="payout-table" class="subsection">
+                        <h3>Payout Table</h3>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Hand Value</th>
+                                                <th>Tai</th>
+                                                <th>Score Multiple</th>
+                                                <th>Discard Win Total</th>
+                                                <th>Self-Draw Win Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Basic hand</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>4 units</td>
+                                                <td>6 units</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Good hand</td>
+                                                <td>2</td>
+                                                <td>2</td>
+                                                <td>8 units</td>
+                                                <td>12 units</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Superior hand</td>
+                                                <td>3</td>
+                                                <td>4</td>
+                                                <td>16 units</td>
+                                                <td>24 units</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Excellent hand</td>
+                                                <td>4</td>
+                                                <td>8</td>
+                                                <td>32 units</td>
+                                                <td>48 units</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Limit hand</td>
+                                                <td>5+</td>
+                                                <td>16</td>
+                                                <td>64 units</td>
+                                                <td>96 units</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <h4 style="margin-top: 20px;">How Payment Works</h4>
+                                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                    <div style="flex: 1; min-width: 300px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+                                        <h5>For Discard Win</h5>
+                                        <ul>
+                                            <li>Player who discarded winning tile pays 2× the score multiple</li>
+                                            <li>Other two losers pay 1× the score multiple each</li>
+                                        </ul>
+                                    </div>
+                                    <div style="flex: 1; min-width: 300px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+                                        <h5>For Self-Draw Win</h5>
+                                        <ul>
+                                            <li>All three opponents pay 2× the score multiple each</li>
+                                        </ul>
+                                    </div>
+                                    <div style="flex: 1; min-width: 300px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+                                        <h5>Pay-All (Bao) Scenario</h5>
+                                        <ul>
+                                            <li>One player responsible pays the entire amount (all 4× or 6× units)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="glossary" class="subsection">
+                        <h3>Glossary</h3>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Term</th>
+                                                <th>Definition</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Chow (Chi)</td>
+                                                <td>A sequence of three consecutive numbers in the same suit</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pong (Pung)</td>
+                                                <td>A set of three identical tiles</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Kong (Gang)</td>
+                                                <td>A set of four identical tiles</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mahjong (Hu)</td>
+                                                <td>Winning hand declaration</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dead Wall</td>
+                                                <td>Reserved tiles (usually 15) for replacement draws</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Self-Draw (Zimo)</td>
+                                                <td>Winning by drawing a tile from the wall</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tai</td>
+                                                <td>Points that determine hand value (doubles with each point)</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Bao</td>
+                                                <td>Pay-for-all penalty for feeding dangerous tiles</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Honor Tiles</td>
+                                                <td>Wind and Dragon tiles</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Terminal Tiles</td>
+                                                <td>1s and 9s of the three suits</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Suited Tiles</td>
+                                                <td>Dots, Bamboos, and Characters</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Flower "Wedding"</td>
+                                                <td>Having both your seat's Flower and Season</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Robbing a Kong</td>
+                                                <td>Winning by claiming a tile being used to form a Kong</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fully Concealed</td>
+                                                <td>No exposed melds and winning by self-draw</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="example-scenarios" class="subsection">
+                        <h3>Example Scenarios</h3>
+                        <div class="example">
+                            <h4>Scenario 1: Win With Kong on Kong</h4>
+                            <div class="card">
+                                <div class="card-body">
+                                    <p>Player A has 6♦6♦6♦ and 8♠8♠8♠ in hand with other tiles. On their turn, they draw another 6♦ and declare a Kong. Their replacement draw from the dead wall is 8♠. They declare another Kong with their 8♠ tiles. The second replacement draw gives them their winning tile.</p>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
+                                        <div style="flex: 1; min-width: 250px;">
+                                            <h5>Scoring</h5>
+                                            <p>This would be a "Kong on Kong" limit hand (5 tai) since they made multiple kongs in sequence and won on a replacement tile.</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px;">
+                                            <h5>Payout</h5>
+                                            <p>As a self-draw win with 5 tai, each opponent pays 32 units for a total of 96 units.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="example">
+                            <h4>Scenario 2: Robbing a Kong</h4>
+                            <div class="card">
+                                <div class="card-body">
+                                    <p>Player B has an exposed Pong of Red Dragons. They draw the fourth Red Dragon and declare a Kong. Player C, who was waiting for the Red Dragon to complete their hand, declares "Mahjong" to rob the Kong.</p>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
+                                        <div style="flex: 1; min-width: 250px;">
+                                            <h5>Scoring</h5>
+                                            <p>If Player C's hand was worth 2 tai, the robbing of the Kong adds 1 tai for a total of 3 tai.</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px;">
+                                            <h5>Payout</h5>
+                                            <p>This counts as a discard win from Player B. With 3 tai (X=4), Player B pays 8 units, others pay 4 each, for a total of 16 units to Player C.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="example">
+                            <h4>Scenario 3: Pay-All Scenario</h4>
+                            <div class="card">
+                                <div class="card-body">
+                                    <p>East is dealer and has no flowers. South has 1 flower (not South's own). The game proceeds. During play, West declares a concealed kong of 7♣. West immediately draws from dead wall and gets a winning tile to complete an All Pungs half-flush hand. However, East sees that the tile West used to kong (7♣) was the tile East needed for Mahjong. East declares "Mahjong" to rob West's kong before West draws. East's hand has a pong of Red dragons and is all pungs.</p>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
+                                        <div style="flex: 1; min-width: 250px;">
+                                            <h5>Scoring</h5>
+                                            <p>East scores: Dragon pong (1), All Pungs (2), seat wind pong (1) = 4 tai. The win was by robbing (1 tai) making it 5 tai limit.</p>
+                                        </div>
+                                        <div style="flex: 1; min-width: 250px;">
+                                            <h5>Payout</h5>
+                                            <p>It's a discard win off West, so normally West pays double and others single; but since West caused it by kong, West is effectively the discarder. East gets paid 4×16 = 64 points.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <a href="#main-title" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+                <button class="theme-toggle" id="theme-toggle" title="Toggle dark/light mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>Singapore Mahjong Rules Documentation - Last Updated: March 12, 2025</p>
+        <p>Created by Mahjong Rules Implementation Team</p>
+    </footer>
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('search');
+        const searchButton = document.getElementById('search-btn');
+        const searchResults = document.getElementById('search-results');
+        function performSearch() {
+            const query = searchInput.value.toLowerCase();
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            const content = document.querySelector('.content');
+            const sections = content.querySelectorAll('section, .subsection, h3, h4, p, li');
+            let results = [];
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    const id = section.id || section.closest('[id]')?.id || '';
+                    const heading = section.querySelector('h2, h3, h4')?.textContent ||
+                        section.closest('.subsection')?.querySelector('h3, h4')?.textContent ||
+                        section.closest('section')?.querySelector('h2')?.textContent || 'Result';
+                    const context = section.textContent.slice(0, 150).trim() + '...';
+                    results.push({
+                        id: id,
+                        heading: heading,
+                        context: context,
+                        element: section
+                    });
+                }
+            });
+            // Remove duplicates and limit to top 10
+            results = results.filter((result, index, self) =>
+                index === self.findIndex(r => r.id === result.id)
+            ).slice(0, 10);
+            if (results.length > 0) {
+                searchResults.innerHTML = '';
+                results.forEach(result => {
+                    const item = document.createElement('div');
+                    item.className = 'result-item';
+                    const title = document.createElement('div');
+                    title.className = 'result-heading';
+                    title.textContent = result.heading;
+                    const context = document.createElement('div');
+                    context.className = 'result-context';
+                    context.textContent = result.context;
+                    item.appendChild(title);
+                    item.appendChild(context);
+                    item.addEventListener('click', () => {
+                        searchResults.style.display = 'none';
+                        if (result.id) {
+                            document.getElementById(result.id).scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                            result.element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                        // Highlight the result temporarily
+                        result.element.classList.add('highlight');
+                        setTimeout(() => {
+                            result.element.classList.remove('highlight');
+                        }, 2000);
+                    });
+                    searchResults.appendChild(item);
+                });
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.innerHTML = '<div class="result-item"><div class="result-heading">No results found</div></div>';
+                searchResults.style.display = 'block';
+            }
+        }
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchResults.contains(e.target) && e.target !== searchInput && e.target !== searchButton) {
+                searchResults.style.display = 'none';
+            }
+        });
+        // Navigation highlighting
+        const navItems = document.querySelectorAll('.nav-item a');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 200;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').slice(1) === current) {
+                    item.classList.add('active');
+                }
+            });
+            // Update reading progress bar
+            const totalHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = (scrollY / totalHeight) * 100;
+            document.querySelector('.reading-progress').style.width = progress + '%';
+        });
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function () {
+                const tabId = this.getAttribute('data-tab');
+                const tabContainer = this.closest('.tabs');
+                const contentContainer = tabContainer.nextElementSibling;
+                const tabContentId = tabContainer.parentElement.querySelector(`#${tabId}`);
+                // Deactivate all tabs in this container
+                tabContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                // Hide all tab content in this section
+                tabContainer.parentElement.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                // Activate clicked tab and its content
+                this.classList.add('active');
+                tabContentId.classList.add('active');
+            });
+        });
+        // Mobile nav toggle
+        document.querySelectorAll('.nav-heading').forEach(heading => {
+            heading.addEventListener('click', function () {
+                const subnav = this.nextElementSibling;
+                if (subnav && subnav.classList.contains('subnav')) {
+                    subnav.classList.toggle('active');
+                }
+            });
+        });
+        // Collapsible sections
+        document.querySelectorAll('.collapsible-header').forEach(header => {
+            header.addEventListener('click', function () {
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+                if (content.classList.contains('collapsible-content')) {
+                    content.classList.toggle('active');
+                }
+            });
+        });
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        // Check for saved theme preference or use preferred color scheme
+        const savedTheme = localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        // Apply theme on page load
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeToggle.querySelector('i').classList.remove('fa-moon');
+            themeToggle.querySelector('i').classList.add('fa-sun');
+        }
+        themeToggle.addEventListener('click', function () {
+            // Toggle dark/light mode
+            document.body.classList.toggle('dark-theme');
+            // Update icon
+            this.querySelector('i').classList.toggle('fa-moon');
+            this.querySelector('i').classList.toggle('fa-sun');
+            // Save preference
+            const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+            localStorage.setItem('theme', currentTheme);
+        });
+    </script>
+</body>
+</html>
